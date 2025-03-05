@@ -90,7 +90,6 @@ public class AuthController {
             return ResponseEntity.badRequest().body(new MessageResponse("Error: Email is already in use!"));
         }
 
-        // Create new user's account
         User user = new User(signUpRequest.getUsername(),
                 signUpRequest.getEmail(),
                 passwordEncoder.encode(signUpRequest.getPassword()));
@@ -154,6 +153,31 @@ public class AuthController {
     @GetMapping("/username")
     public String currentUserName(@AuthenticationPrincipal UserDetails userDetails) {
         return (userDetails != null) ? userDetails.getUsername() : "";
+    }
+
+
+    @PostMapping("/public/forget-password")
+    public  ResponseEntity<?> forgetPasssword(@RequestParam String email) {
+        try {
+            userService.generatePasswordResetToken(email);
+            return ResponseEntity.ok(new MessageResponse("Password reset send successfully!"));
+        }
+       catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new MessageResponse("Error: sedding reset Password "));
+       }
+    }
+
+
+
+    @PostMapping("/public/reset-password")
+    public  ResponseEntity<?> forgetPasssword(@RequestParam String token,@RequestParam String newPassword) {
+        try {
+            userService.resetPassword(token,newPassword);
+            return ResponseEntity.ok(new MessageResponse("Password reset send successfully!"));
+        }
+        catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new MessageResponse("Error: sedding reset Password "));
+        }
     }
 
 }

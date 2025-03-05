@@ -18,17 +18,22 @@ import java.time.LocalDateTime;
 @Entity
 @Data
 @NoArgsConstructor
-@Table(name = "users",
+@Table(
+        name = "users",
         uniqueConstraints = {
                 @UniqueConstraint(columnNames = "username"),
                 @UniqueConstraint(columnNames = "email")
-        })
+        }
+)
 public class User {
+
+    // 🔹 Primary Key
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
     private Long userId;
 
+    // 🔹 User Credentials
     @NotBlank
     @Size(max = 20)
     @Column(name = "username")
@@ -49,7 +54,6 @@ public class User {
     private boolean accountNonExpired = true;
     private boolean credentialsNonExpired = true;
     private boolean enabled = true;
-
     private LocalDate credentialsExpiryDate;
     private LocalDate accountExpiryDate;
 
@@ -76,10 +80,6 @@ public class User {
         this.password = password;
     }
 
-    public User(String userName, String email) {
-        this.userName = userName;
-        this.email = email;
-    }
 
     @Override
     public boolean equals(Object o) {
@@ -93,6 +93,3 @@ public class User {
         return getClass().hashCode();
     }
 }
-
-
-

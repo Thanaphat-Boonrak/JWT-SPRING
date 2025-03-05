@@ -1,12 +1,12 @@
 package com.example.securitySpringboots.Repository;
 
-import com.example.securitySpringboots.Entity.Notes;
+import com.example.securitySpringboots.Entity.AuditLog;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 @Repository
-public interface NotesRepository extends JpaRepository<Notes, Long> {
+public interface AuditLogRepository extends JpaRepository<AuditLog, Long> {
 
-    List<Notes> findByownerUsername(String OwnerUsername);
+    List<AuditLog> findByNoteId(Long noteId);
 }

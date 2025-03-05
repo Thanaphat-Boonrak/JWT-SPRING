@@ -16,6 +16,8 @@ public class NoteController {
     @Autowired
     private NoteService noteService;
 
+
+
     @PostMapping
     public Notes createNote(@RequestBody String content,
                             @AuthenticationPrincipal UserDetails userDetails) {
