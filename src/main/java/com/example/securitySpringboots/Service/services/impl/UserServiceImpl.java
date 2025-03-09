@@ -41,8 +41,7 @@ public class UserServiceImpl implements UserService {
 
     @Value("${frontend.url}")
     private String  frontendurl;
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+
 
     @Override
     public void updateUserRole(Long userId, String roleName) {
