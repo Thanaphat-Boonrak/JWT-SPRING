@@ -105,6 +105,19 @@ public class UserServiceImpl implements UserService {
         passwordRestRepository.save(resetToken);
     }
 
+    @Override
+    public Optional<User> findByEmail(String email) {
+        return userRepository.findByEmail(email);
+    }
+
+    @Override
+    public void registerUser(User newUser) {
+     if(newUser.getPassword() != null) {
+         newUser.setPassword(encoder.encode(newUser.getPassword()));
+     }
+     userRepository.save(newUser);
+    }
+
     private UserDTO convertToDto(User user) {
         return new UserDTO(
                 user.getUserId(),

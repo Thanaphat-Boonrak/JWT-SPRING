@@ -1,9 +1,11 @@
 package com.example.securitySpringboots.security;
+import com.example.securitySpringboots.Config.OAuth2LoginSuccessHandler;
 import com.example.securitySpringboots.Jwt.AuthEntryPointJwt;
 import com.example.securitySpringboots.Jwt.AuthTokenFilters;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
@@ -28,6 +30,10 @@ public class SecurityConfiguration {
     @Autowired
     private AuthEntryPointJwt unauthorizedHandler;
 
+    @Autowired
+    @Lazy
+    private OAuth2LoginSuccessHandler loginSuccessHandler;
+
     @Bean
     public AuthTokenFilters authenticationJwtTokenFilter() {
         return new AuthTokenFilters();
@@ -45,6 +51,7 @@ public class SecurityConfiguration {
     }
 
 
+
     @Bean
     SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
         http.csrf(csrf ->
@@ -57,7 +64,8 @@ public class SecurityConfiguration {
                 .requestMatchers("/api/admin/**").hasRole("ADMIN")
                 .requestMatchers("/api/csrf-token").permitAll()
                 .requestMatchers("/api/auth/public/**").permitAll()
-                .anyRequest().authenticated());
+                .requestMatchers("/oauth2/**").permitAll()
+                .anyRequest().authenticated()).oauth2Login(oauth2 -> {oauth2.successHandler(loginSuccessHandler);});
         http.exceptionHandling(exception
                 -> exception.authenticationEntryPoint(unauthorizedHandler));
         http.addFilterBefore(authenticationJwtTokenFilter(),
