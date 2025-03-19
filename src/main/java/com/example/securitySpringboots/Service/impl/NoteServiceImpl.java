@@ -1,9 +1,9 @@
-package com.example.securitySpringboots.Service.services.impl;
+package com.example.securitySpringboots.Service.impl;
 
 import com.example.securitySpringboots.Entity.Notes;
 import com.example.securitySpringboots.Repository.NotesRepository;
-import com.example.securitySpringboots.Service.services.AuditLogService;
-import com.example.securitySpringboots.Service.services.NoteService;
+import com.example.securitySpringboots.Service.service.AuditLogService;
+import com.example.securitySpringboots.Service.service.NoteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

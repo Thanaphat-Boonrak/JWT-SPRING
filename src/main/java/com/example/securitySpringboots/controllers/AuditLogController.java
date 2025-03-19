@@ -1,7 +1,7 @@
 package com.example.securitySpringboots.controllers;
 
 import com.example.securitySpringboots.Entity.AuditLog;
-import com.example.securitySpringboots.Service.services.AuditLogService;
+import com.example.securitySpringboots.Service.service.AuditLogService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;

@@ -2,6 +2,7 @@ package com.example.securitySpringboots.security;
 import com.example.securitySpringboots.Config.OAuth2LoginSuccessHandler;
 import com.example.securitySpringboots.Jwt.AuthEntryPointJwt;
 import com.example.securitySpringboots.Jwt.AuthTokenFilters;
+import com.warrenstrange.googleauth.GoogleAuthenticator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -28,17 +29,21 @@ import static org.springframework.security.config.Customizer.withDefaults;
 public class SecurityConfiguration {
 
     @Autowired
-    private AuthEntryPointJwt unauthorizedHandler;
+    AuthEntryPointJwt unauthorizedHandler;
 
     @Autowired
     @Lazy
-    private OAuth2LoginSuccessHandler loginSuccessHandler;
+    OAuth2LoginSuccessHandler oAuth2LoginSuccessHandler;
 
     @Bean
     public AuthTokenFilters authenticationJwtTokenFilter() {
         return new AuthTokenFilters();
     }
 
+    @Bean
+    public GoogleAuthenticator googleAuthenticator(){
+        return new GoogleAuthenticator();
+    }
 
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
@@ -65,7 +70,8 @@ public class SecurityConfiguration {
                 .requestMatchers("/api/csrf-token").permitAll()
                 .requestMatchers("/api/auth/public/**").permitAll()
                 .requestMatchers("/oauth2/**").permitAll()
-                .anyRequest().authenticated()).oauth2Login(oauth2 -> {oauth2.successHandler(loginSuccessHandler);});
+                .anyRequest().authenticated())
+                .oauth2Login(oauth2 -> {oauth2.successHandler(oAuth2LoginSuccessHandler);});
         http.exceptionHandling(exception
                 -> exception.authenticationEntryPoint(unauthorizedHandler));
         http.addFilterBefore(authenticationJwtTokenFilter(),

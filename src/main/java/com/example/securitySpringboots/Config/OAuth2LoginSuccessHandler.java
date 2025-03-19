@@ -4,8 +4,8 @@ import com.example.securitySpringboots.Entity.Role;
 import com.example.securitySpringboots.Entity.User;
 import com.example.securitySpringboots.Jwt.JwtUtils;
 import com.example.securitySpringboots.Repository.RoleRepository;
-import com.example.securitySpringboots.Service.services.UserService;
-import com.example.securitySpringboots.Service.services.impl.UserDetailsImpl;
+import com.example.securitySpringboots.Service.service.UserService;
+import com.example.securitySpringboots.Service.impl.UserDetailsImpl;
 import com.example.securitySpringboots.models.AppRole;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -54,6 +54,11 @@ public class OAuth2LoginSuccessHandler extends SavedRequestAwareAuthenticationSu
             System.out.println("This is attributes :  " + attributes);
             String email = attributes.getOrDefault("email", "").toString();
             String name = attributes.getOrDefault("name", "").toString();
+
+            if (email == null || email.isEmpty()) {
+                throw new RuntimeException("Email not found in OAuth2 response");
+            }
+
             if ("github".equals(oAuth2AuthenticationToken.getAuthorizedClientRegistrationId())) {
                 username = attributes.getOrDefault("login", "").toString();
                 idAttributeKey = "id";

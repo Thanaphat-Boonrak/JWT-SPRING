@@ -1,7 +1,7 @@
 package com.example.securitySpringboots.controllers;
 
 import com.example.securitySpringboots.Entity.Notes;
-import com.example.securitySpringboots.Service.services.NoteService;
+import com.example.securitySpringboots.Service.service.NoteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;

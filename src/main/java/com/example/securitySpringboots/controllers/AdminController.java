@@ -3,7 +3,7 @@ package com.example.securitySpringboots.controllers;
 
 import com.example.securitySpringboots.DTO.UserDTO;
 import com.example.securitySpringboots.Entity.User;
-import com.example.securitySpringboots.Service.services.impl.UserServiceImpl;
+import com.example.securitySpringboots.Service.impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

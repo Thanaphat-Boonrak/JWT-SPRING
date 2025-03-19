@@ -1,7 +1,7 @@
 package com.example.securitySpringboots.Jwt;
 
 
-import com.example.securitySpringboots.Service.services.impl.UserDetailsServiceImpl;
+import com.example.securitySpringboots.Service.impl.UserDetailsServiceImpl;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

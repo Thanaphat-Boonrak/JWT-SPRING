@@ -1,4 +1,4 @@
-package com.example.securitySpringboots.Service.services;
+package com.example.securitySpringboots.Service.service;
 
 import com.example.securitySpringboots.Entity.Notes;
 
